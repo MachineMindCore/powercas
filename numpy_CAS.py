@@ -153,7 +153,15 @@ def append(arr_A, arr_B, axis=0, dtype=None):
                 arr_new[i+dim_Ay, j] = arr_B.data[i][j]
 
     elif axis == 1:
-        pass
+        arr_new = zeros((dim_Ay, dim_Ax + dim_Bx), dtype=dtype)
+
+        for i in range(dim_Ay):
+            for j in range(dim_Ax):
+                arr_new[i,j] = arr_A.data[i][j]
+
+        for i in range(dim_By):
+            for j in range(dim_Bx):
+                arr_new[i, j+dim_Ax] = arr_B.data[i][j]
     else:
         raise ValueError("Axis out of bounds")
     return arr_new
@@ -176,6 +184,17 @@ def max(arr):
             if m < arr.data[i][j]:
                 m = arr.data[i][j]
     return m
+
+# only vector
+def sum(arr, index=0):
+    value = 0
+    if index==0:
+        for i in range(arr.shape[0]):
+            value += arr[i,0]
+    if index==1:
+        for j in range(arr.shape[1]):
+            value += arr[0,j]
+    return value
 ##########################################################################################################
 def eliminate(r1, r2, col, target=0):
     fac = (r2[col]-target) / r1[col]

@@ -70,3 +70,4 @@ class PowerSystem:
         elif loss == "m3":
             self.loss = lis.power_loss_m3(self.S_transfer)
         return
+
